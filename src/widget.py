@@ -1,3 +1,5 @@
+from src.masks import get_mask_card_number
+from src.masks import get_mask_account
 
 
 def mask_account_card(card_data: str) -> str:
@@ -6,12 +8,7 @@ def mask_account_card(card_data: str) -> str:
     возвращает маскированные данные карты или счета в виде Visa Platinum 7000 79** **** 6361 для карты и Счет **4305
     для счета.
 
-    :param card_data: принимаемое от пользователя значение
-    :card_set переменная для идентификации алгоритма для карты
-    :account_set переменная для идентификации алгоритма для счета
-    :oktet_0..._4 переменные для формирования маски карты
-    :mask_account возвращаемое значение для счета
-    :mask_card возвращаемое значение для карты
+
     '''
     card_set = card_data[-16:]
     account_set = card_data[-20:]
@@ -19,18 +16,14 @@ def mask_account_card(card_data: str) -> str:
     change_card = card_set.isdigit()
 
     if change_account:
-        set_account = account_set[-4:]
-        mask_account = "Счет "+"**"+set_account
-        return mask_account
+        result_digit_account = get_mask_account(account_set)
+        res_fool = "Счет "+result_digit_account
+        return res_fool
 
     if change_card:
-        oktet_0 = card_data[0:-17]
-        oktet_1 = card_set[0:4]
-        oktet_2 = card_set[4:6]
-        oktet_3 = "****"
-        oktet_4 = card_set[12:16]
-        mask_card = oktet_0 + " " + oktet_1 + " " + oktet_2 + "*** " + oktet_3 + " " + oktet_4
-        return mask_card
+        result_digit_card = get_mask_card_number(card_set)
+        res_fool = card_data[:-16] + result_digit_card
+        return res_fool
     return "Ошибка ввода"
 
 
