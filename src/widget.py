@@ -20,3 +20,11 @@ def mask_account_card (card_data: str)->str:
         mask_card = oktet_0 + " " + oktet_1 + " " + oktet_2 + "*** " + oktet_3 + " " + oktet_4
         return mask_card
     return "Ошибка ввода"
+
+
+def get_date (input_date: str)->str:
+    #2024-03-11T02:26:18.671407 -> 11.03.2024
+    dt_years = input_date[0:4]
+    dt_months = input_date[5:7]
+    dt_days = input_date[8:10]
+    return dt_days + ":" + dt_months + ":" + dt_years
