@@ -14,9 +14,7 @@ def mask_account_card(card_data: str) -> str:
     :mask_card возвращаемое значение для карты
     '''
     card_set = card_data[-16:]
-    print(card_set)
     account_set = card_data[-20:]
-    print(account_set)
     change_account = account_set.isdigit()
     change_card = card_set.isdigit()
 
