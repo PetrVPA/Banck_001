@@ -1,6 +1,6 @@
 
 
-def mask_account_card (card_data: str)->str:
+def mask_account_card(card_data: str) -> str:
     '''
     Функция принимает зачение кары или счета в виде Visa Platinum 7000792289606361 или Счет 73654108430135874305
     возвращает маскированные данные карты или счета в виде Visa Platinum 7000 79** **** 6361 для карты и Счет **4305
@@ -14,15 +14,17 @@ def mask_account_card (card_data: str)->str:
     :mask_card возвращаемое значение для карты
     '''
     card_set = card_data[-16:]
-    print (card_set)
+    print(card_set)
     account_set = card_data[-20:]
-    print (account_set)
+    print(account_set)
     change_account = account_set.isdigit()
     change_card = card_set.isdigit()
+
     if change_account:
         set_account = account_set[-4:]
         mask_account = "Счет "+"**"+set_account
         return mask_account
+
     if change_card:
         oktet_0 = card_data[0:-17]
         oktet_1 = card_set[0:4]
@@ -34,15 +36,16 @@ def mask_account_card (card_data: str)->str:
     return "Ошибка ввода"
 
 
-def get_date (input_date: str)->str:
+def get_date(input_date: str) -> str:
     '''
     Функция принимает значение в непонятном американском формате переводя его в понятный человеческий
+    2024-03-11T02:26:18.671407 -> 11.03.2024
     :input_date переменная принимающая значение
     :dt_years переменная принимающая значение года
     :dt_months переменная принимающая значение месяца
     :dt_days переменная принимающая значение дня
     '''
-    #2024-03-11T02:26:18.671407 -> 11.03.2024
+
     dt_years = input_date[0:4]
     dt_months = input_date[5:7]
     dt_days = input_date[8:10]
