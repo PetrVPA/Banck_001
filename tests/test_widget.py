@@ -1,20 +1,37 @@
+import pytest
 from src.widget import mask_account_card
 from src.widget import get_date
 
-def test_wid_cards():
-    assert mask_account_card("Visa Platinum 1234123412341234") == "Visa Platinum 1234 12** **** 1234"
+@pytest.fixture
+def card_name():
+    return "Visa Platinum 1234123412341234"
+
+@pytest.fixture
+def error_card_name():
+    return "Visa Platinum 1234123u12341234"
+
+@pytest.fixture
+def account_name():
+    return "Счет 12345678901234567890"
+
+@pytest.fixture
+def error_account_name():
+    return "Счет 123456789u1234567890"
+
+def test_wid_cards(card_name):
+    assert mask_account_card(card_name) == "Visa Platinum 1234 12** **** 1234"
 
 
-def test_wid_cards_err():
-    assert mask_account_card("Visa Platinum 1234123u12341234") == "Ошибка ввода"
+def test_wid_cards_err(error_card_name):
+    assert mask_account_card(error_card_name) == "Ошибка ввода"
 
 
-def test_wid_account():
-    assert mask_account_card("Счет 12345678901234567890") == "Счет **7890"
+def test_wid_account(account_name):
+    assert mask_account_card(account_name) == "Счет **7890"
 
 
-def test_wid_account_err():
-    assert mask_account_card("Счет 123456789u1234567890") == "Ошибка ввода"
+def test_wid_account_err(error_account_name):
+    assert mask_account_card(error_account_name) == "Ошибка ввода"
 
 
 def test_wid_date():
