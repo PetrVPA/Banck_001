@@ -10,6 +10,10 @@ def test_data():
     {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
     {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
 
+@pytest.fixture
+def off_status_data():
+    return 'CANCELED'
+
 
 
 def test_filter_by_state1(test_data):
@@ -17,8 +21,8 @@ def test_filter_by_state1(test_data):
     {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]
 
 
-def test_filter_by_state2(test_data):
-    assert filter_by_state(test_data, 'CANCELED') == [{'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
+def test_filter_by_state2(test_data, off_status_data):
+    assert filter_by_state(test_data, off_status_data) == [{'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
     {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
 
 
