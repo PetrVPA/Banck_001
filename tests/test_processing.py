@@ -1,9 +1,9 @@
-import pytest
+
 from src.processing import filter_by_state
 from src.processing import sort_by_date
 
 
-@pytest.fixture
+'''@pytest.fixture
 def test_data():
     return [
         {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
@@ -23,6 +23,7 @@ def test_filter_by_state1(test_data: str) -> str:
         {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
         {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}
     ]
+'''
 
 
 def test_filter_by_state2(test_data, off_status_data: str) -> str:

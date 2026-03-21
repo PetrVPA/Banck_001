@@ -1,8 +1,8 @@
-import pytest
+
 from src.widget import mask_account_card
 from src.widget import get_date
 
-
+'''
 @pytest.fixture
 def card_name():
     return "Visa Platinum 1234123412341234"
@@ -21,6 +21,7 @@ def account_name():
 @pytest.fixture
 def error_account_name():
     return "Счет 123456789u1234567890"
+'''
 
 
 def test_wid_cards(card_name: str) -> str:
