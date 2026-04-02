@@ -14,12 +14,15 @@ def filter_by_currency(list_operation, key_filter):
     return completed_transactions
 
 
-def transaction_descriptions():
+def transaction_descriptions(list_operation):
     '''
-    генератор
-    :return:
+    функция показывающая характер транзакции (вид операции)
+    return meaning_transaction возвращает список выполняемых операций
+    operation текущая транзакция
+    list_operation перечень (список) всех анализируемых транзакций
     '''
-    pass
+    meaning_transaction = [operation ["description"] for operation in list_operation  if operation ["id"] > 0]
+    return meaning_transaction
 
 
 def card_number_generator(start, finish):
