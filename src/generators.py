@@ -2,11 +2,16 @@
 
 def filter_by_currency(list_operation, key_filter):
     '''
-    новая функция
-    :return:
+    Функция возвращает итератор, который поочередно выдает транзакции, где валюта операции соответствует заданной
+    (например, USD)
+    return completed_transactions возвращаемый список словарей отвечающих требованию выбранной валюты транзакции
+    meaning_key очередная транзакция подвергающаяся анализу
+    list_operation перечень (список) всех анализируемых транзакций
+    key_filter ключ определяющий выбор валюты для обработки транзакций
     '''
-    result = [tile for tile in list_operation if tile ["operationAmount"] ["currency"] ["code"] == key_filter]
-    return result
+    completed_transactions = [meaning_key for meaning_key in list_operation if meaning_key ["operationAmount"] \
+        ["currency"] ["code"] == key_filter]
+    return completed_transactions
 
 
 def transaction_descriptions():
