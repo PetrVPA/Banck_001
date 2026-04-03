@@ -1,6 +1,6 @@
 
 
-def filter_by_currency(list_operation, key_filter):
+def filter_by_currency(list_operation: list, key_filter: str) -> list:
     '''
     Функция возвращает итератор, который поочередно выдает транзакции, где валюта операции соответствует заданной
     (например, USD)
@@ -15,7 +15,7 @@ def filter_by_currency(list_operation, key_filter):
     return completed_transactions
 
 
-def transaction_descriptions(list_operation):
+def transaction_descriptions(list_operation: list) -> list:
     '''
     функция показывающая характер транзакции (вид операции)
     return meaning_transaction возвращает список выполняемых операций
@@ -26,7 +26,7 @@ def transaction_descriptions(list_operation):
     return meaning_transaction
 
 
-def card_number_generator(start, finish):
+def card_number_generator(start: int, finish: int) -> list:
     '''
     генератор формирующий карты в формате октетов с пробелами, начиная от стартового до финишного значений
     range_card формирует карты к шестнадцати разрядной форме номера карты
