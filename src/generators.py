@@ -9,9 +9,8 @@ def filter_by_currency(list_operation: list, key_filter: str) -> list:
     list_operation перечень (список) всех анализируемых транзакций
     key_filter ключ определяющий выбор валюты для обработки транзакций
     '''
-    completed_transactions = [
-        meaning_key for meaning_key in list_operation if meaning_key["operationAmount"]["currency"][
-            "code"] == key_filter]
+    completed_transactions = (meaning_key for meaning_key in list_operation if meaning_key["operationAmount"][
+        "currency"]["code"] == key_filter)
     return completed_transactions
 
 
@@ -22,8 +21,8 @@ def transaction_descriptions(list_operation: list) -> list:
     operation текущая транзакция
     list_operation перечень (список) всех анализируемых транзакций
     '''
-    meaning_transaction = [operation["description"]for operation in list_operation if operation["id"] > 0]
-    return meaning_transaction
+    meaning_transaction = (operation["description"] for operation in list_operation if operation["id"] > 0)
+    yield from meaning_transaction
 
 
 def card_number_generator(start: int, finish: int) -> list:
