@@ -336,3 +336,18 @@ def num_gen_finish1():
 @pytest.fixture
 def answer_num_gen1():
     return ['0000 0000 0000 0023', '0000 0000 0000 0024', '0000 0000 0000 0025', '0000 0000 0000 0026']
+
+
+def answer_cons_test_log1(capsys):
+    with capsys.disabled():
+        print("my_function error: TypeError. Inputs: (1, y), {}")
+
+
+def answer_cons_test_log2(capsys):
+    with capsys.disabled():
+        print("my_function ok")
+
+
+def question_test_log2(capsys):
+    with pytest.rises(capsys):
+        print("my_function ok")
