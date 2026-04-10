@@ -13,7 +13,6 @@ def log(filename = None):
 
             try:
                 result = func(*args, **kwargs)
-                # return result
 
             except TypeError:
                 out_message = "TypeError"
@@ -25,7 +24,6 @@ def log(filename = None):
                 out_message = "UnboundLocalError"
             else:
                 out_message = "my_function ok\n"
-                #return result
 
             if filename != None:
                 file = open(filename, "a")
@@ -36,8 +34,6 @@ def log(filename = None):
                     return result
                 file.close()
 
-
-
             else:
                 if out_message != "my_function ok\n":
                     print(f'my_function error: {out_message}. Inputs: ({x}, {y}), {t}\n')
@@ -45,8 +41,6 @@ def log(filename = None):
                 else:
                     print('my_function ok\n')
                     return result
-
-
 
         return wrapper
     return my_log
