@@ -6,28 +6,45 @@ def log(filename = None):
             x = args[0]
             y = args[1]
             t = {**kwargs}
-            out_message =''
+
+
+
+
 
             try:
                 result = func(*args, **kwargs)
-                return result
+                # return result
+
             except TypeError:
                 out_message = "TypeError"
             except ValueError:
-                out_message ="ValueError"
+                out_message = "ValueError"
             except ZeroDivisionError:
-                out_message ="ZeroDivisionError"
+                out_message = "ZeroDivisionError"
+            except UnboundLocalError:
+                out_message = "UnboundLocalError"
+            else:
+                out_message = "my_function ok\n"
+                #return result
+
             if filename != None:
                 file = open(filename, "a")
-                if out_message == '':
-                    file.write('my_function ok \n')
-                else:
+                if out_message != "my_function ok\n":
                     file.write(f'my_function error: {out_message}. Inputs: ({x}, {y}), {t}\n')
-            else:
-                if out_message == '':
-                    print('my_function ok\n')
                 else:
+                    file.write('my_function ok\n')
+                    return result
+                file.close()
+
+
+
+            else:
+                if out_message != "my_function ok\n":
                     print(f'my_function error: {out_message}. Inputs: ({x}, {y}), {t}\n')
+
+                else:
+                    print('my_function ok\n')
+                    return result
 
 
 
