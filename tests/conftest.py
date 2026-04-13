@@ -338,16 +338,16 @@ def answer_num_gen1():
     return ['0000 0000 0000 0023', '0000 0000 0000 0024', '0000 0000 0000 0025', '0000 0000 0000 0026']
 
 
-def answer_cons_test_log1(capsys):
-    with capsys.disabled():
-        print("my_function error: TypeError. Inputs: (1, y), {}")
+@pytest.fixture
+def log_ansver_001():
+    return "my_function ok\n"
 
 
-def answer_cons_test_log2(capsys):
-    with capsys.disabled():
-        print("my_function ok")
+@pytest.fixture
+def log_ansver_002():
+    return "my_function error: ZeroDivisionError. Inputs: (6, 0), {}\n"
 
 
-def question_test_log2(capsys):
-    with pytest.rises(capsys):
-        print("my_function ok")
+@pytest.fixture
+def log_ansver_003():
+    return "my_function error: TypeError. Inputs: (6, t), {}\n"

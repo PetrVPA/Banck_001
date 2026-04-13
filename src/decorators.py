@@ -6,11 +6,6 @@ def log(filename = None):
             x = args[0]
             y = args[1]
             t = {**kwargs}
-
-
-
-
-
             try:
                 result = func(*args, **kwargs)
 
@@ -26,7 +21,7 @@ def log(filename = None):
                 out_message = "my_function ok\n"
 
             if filename != None:
-                file = open(filename, "a")
+                file = open(filename, "w")
                 if out_message != "my_function ok\n":
                     file.write(f'my_function error: {out_message}. Inputs: ({x}, {y}), {t}\n')
                 else:
