@@ -49,12 +49,12 @@ def test_log_decorator1(capsys):
 def test_log_decorator2(capsys):
     result = example_function(6, "t")
     captured = capsys.readouterr()
-    assert result == None
+    assert result is None
     assert "my_function error: TypeError. Inputs: (6, t), {}" in captured.out
 
 
 def test_log_decorator3(capsys):
     result = example_function(2, 0)
     captured = capsys.readouterr()
-    assert result == None
+    assert result is None
     assert "my_function error: ZeroDivisionError. Inputs: (2, 0), {}" in captured.out
