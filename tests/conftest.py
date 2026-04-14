@@ -336,3 +336,18 @@ def num_gen_finish1():
 @pytest.fixture
 def answer_num_gen1():
     return ['0000 0000 0000 0023', '0000 0000 0000 0024', '0000 0000 0000 0025', '0000 0000 0000 0026']
+
+
+@pytest.fixture
+def log_ansver_001():
+    return "my_function ok\n"
+
+
+@pytest.fixture
+def log_ansver_002():
+    return "my_function error: ZeroDivisionError. Inputs: (6, 0), {}\n"
+
+
+@pytest.fixture
+def log_ansver_003():
+    return "my_function error: TypeError. Inputs: (6, t), {}\n"
