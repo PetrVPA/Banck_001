@@ -1,14 +1,10 @@
-import os
-from dotenv import load_dotenv
 import requests
 import json
 
-load_dotenv()
-token = os.getenv('API_KEY')
-load_dotenv()
 
 
-def amout_rur (trans_action):
+
+def amout_rur (trans_action: dict) -> float:
     '''
     функция, которая принимает на вход одну (словарь)транзакцию и возвращает сумму транзакции (amount) в рублях,
     тип данных — float
@@ -16,48 +12,56 @@ def amout_rur (trans_action):
     {'id': 441945886, 'state': 'EXECUTED', 'date': '2019-08-26T10:50:58.294041', 'operationAmount':
     {'amount': '31957.58', 'currency': {'name': 'руб.', 'code': 'RUB'}}, 'description': 'Перевод организации',
     'from': 'Maestro 1596837868705199', 'to': 'Счет 64686473678894779589'}
-    :return:
+    :return:возвращает сумму операции в рублях в пересчете по курсу валюты float.
     '''
 
 
-    rest = trans_action['operationAmount']['currency']['code']
-    turn = trans_action['operationAmount']['amount']
+    rest = trans_action['operationAmount']['currency']['code'].upper()
+    quantity_many = trans_action['operationAmount']['amount']
 
 
     if rest == 'RUB':
 
-        return float(turn)
+        return float(quantity_many)
 
     if rest == 'USD':
-        # load_dotenv()
-        # token = os.getenv('API_KEY')
-        # load_dotenv()
-        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount={turn}"
+
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount={quantity_many}"
         payload = {}
         headers = {
-            "apikey": f"{token}"
+            "apikey": "lWBphzmmwOMw5JNxuwb9uFiJl7qZTk5b"
         }
-
-        response = requests.request("GET", url, headers=headers, data=payload)
-        dura = response.text
-        dura = json.loads(dura)
-
-        return float(dura['result'])
+        try:
+            response = requests.request("GET", url, headers=headers, data=payload)
+            output = response.text
+        except requests.exceptions.Timeout:
+            print("Превышено время ожидания...")
+        except requests.exceptions.TooManyRedirects:
+            print("Количество перенаправлений превысило предел")
+        except requests.exceptions.RequestException:
+            print("Ошибка в обращении к сервису. Попробуйте позже.")
+        else:
+            output_value = json.loads(output)
+            return float(output_value['result'])
     if rest == 'EUR':
-        # load_dotenv()
-        # token = os.getenv('API_KEY')
-        # load_dotenv()
-        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=EUR&amount={turn}"
+
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=EUR&amount={quantity_many}"
 
         payload = {}
         headers = {
-            "apikey": f"{token}"
+            "apikey": "lWBphzmmwOMw5JNxuwb9uFiJl7qZTk5b"
         }
-
-        response = requests.request("GET", url, headers=headers, data=payload)
-        dura = response.text
-        dura = json.loads(dura)
-
-        return float(dura['result'])
+        try:
+            response = requests.request("GET", url, headers=headers, data=payload)
+            output = response.text
+        except requests.exceptions.Timeout:
+            print("Превышено время ожидания...")
+        except requests.exceptions.TooManyRedirects:
+            print("Количество перенаправлений превысило предел")
+        except requests.exceptions.RequestException:
+            print("Ошибка в обращении к сервису. Попробуйте позже.")
+        else:
+            output_value = json.loads(output)
+            return float(output_value['result'])
 
     return ()

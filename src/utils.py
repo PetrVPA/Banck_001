@@ -1,7 +1,7 @@
 import json
 
 
-def json_operation (name_dir):
+def json_operation (name_dir: str) -> list:
     '''
     функция, которая принимает на вход путь до JSON-файла и возвращает список словарей
     с данными о финансовых транзакциях.
