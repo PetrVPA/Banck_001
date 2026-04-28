@@ -1,0 +1,67 @@
+import requests
+import json
+
+
+
+
+def amout_rur (trans_action: dict) -> float:
+    '''
+    функция, которая принимает на вход одну (словарь)транзакцию и возвращает сумму транзакции (amount) в рублях,
+    тип данных — float
+    Пример операции:
+    {'id': 441945886, 'state': 'EXECUTED', 'date': '2019-08-26T10:50:58.294041', 'operationAmount':
+    {'amount': '31957.58', 'currency': {'name': 'руб.', 'code': 'RUB'}}, 'description': 'Перевод организации',
+    'from': 'Maestro 1596837868705199', 'to': 'Счет 64686473678894779589'}
+    :return:возвращает сумму операции в рублях в пересчете по курсу валюты float.
+    '''
+
+
+    rest = trans_action['operationAmount']['currency']['code'].upper()
+    quantity_many = trans_action['operationAmount']['amount']
+
+
+    if rest == 'RUB':
+
+        return float(quantity_many)
+
+    if rest == 'USD':
+
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount={quantity_many}"
+        payload = {}
+        headers = {
+            "apikey": "lWBphzmmwOMw5JNxuwb9uFiJl7qZTk5b"
+        }
+        try:
+            response = requests.request("GET", url, headers=headers, data=payload)
+            output = response.text
+        except requests.exceptions.Timeout:
+            print("Превышено время ожидания...")
+        except requests.exceptions.TooManyRedirects:
+            print("Количество перенаправлений превысило предел")
+        except requests.exceptions.RequestException:
+            print("Ошибка в обращении к сервису. Попробуйте позже.")
+        else:
+            output_value = json.loads(output)
+            return float(output_value['result'])
+    if rest == 'EUR':
+
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=EUR&amount={quantity_many}"
+
+        payload = {}
+        headers = {
+            "apikey": "lWBphzmmwOMw5JNxuwb9uFiJl7qZTk5b"
+        }
+        try:
+            response = requests.request("GET", url, headers=headers, data=payload)
+            output = response.text
+        except requests.exceptions.Timeout:
+            print("Превышено время ожидания...")
+        except requests.exceptions.TooManyRedirects:
+            print("Количество перенаправлений превысило предел")
+        except requests.exceptions.RequestException:
+            print("Ошибка в обращении к сервису. Попробуйте позже.")
+        else:
+            output_value = json.loads(output)
+            return float(output_value['result'])
+
+    return ()
