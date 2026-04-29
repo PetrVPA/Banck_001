@@ -1,5 +1,10 @@
 import requests
+import os
+from dotenv import load_dotenv
 import json
+
+load_dotenv()
+api_token = os.getenv('API_KEY')
 
 
 
@@ -29,7 +34,7 @@ def amout_rur (trans_action: dict) -> float:
         url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount={quantity_many}"
         payload = {}
         headers = {
-            "apikey": "lWBphzmmwOMw5JNxuwb9uFiJl7qZTk5b"
+            "apikey": f"{api_token}"
         }
         try:
             response = requests.request("GET", url, headers=headers, data=payload)
@@ -49,7 +54,7 @@ def amout_rur (trans_action: dict) -> float:
 
         payload = {}
         headers = {
-            "apikey": "lWBphzmmwOMw5JNxuwb9uFiJl7qZTk5b"
+            "apikey": f"{api_token}"
         }
         try:
             response = requests.request("GET", url, headers=headers, data=payload)
