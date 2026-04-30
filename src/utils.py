@@ -1,12 +1,14 @@
 import json
+from typing import Any
 
 
-def json_operation (name_dir: str) -> list:
+def json_operation(name_dir: str) -> list:
     '''
     функция, которая принимает на вход путь до JSON-файла и возвращает список словарей
     с данными о финансовых транзакциях.
     :return:
     '''
+    output_operation: list [Any] = []
     try:
         with open(name_dir, 'r', encoding='utf-8') as operation:
             output_operation = json.load(operation)
