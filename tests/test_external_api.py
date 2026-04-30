@@ -68,6 +68,7 @@ def test_amout_rur1(mock_request):
         data={}
     )
 
+
 @patch('requests.request')
 def test_amout_rur2(mock_request):
     # Настраиваем заглушку — мокаем Response.text
@@ -89,6 +90,7 @@ def test_amout_rur2(mock_request):
         data={}
     )
 
+
 @patch('requests.request')
 def test_amout_rur3(mock_request):
     # Настраиваем заглушку — мокаем Response.text
@@ -101,6 +103,7 @@ def test_amout_rur3(mock_request):
     # Проверяем результат
     assert result == 28836.74
 
+
 @patch('requests.request')
 def test_amout_rur4(mock_request):
     # Настраиваем заглушку — мокаем Response.text
@@ -111,4 +114,4 @@ def test_amout_rur4(mock_request):
     result = amout_rur(trans_action4)
 
     # Проверяем результат
-    assert result == ()
+    assert result == 0

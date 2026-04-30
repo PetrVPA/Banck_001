@@ -7,9 +7,7 @@ load_dotenv()
 api_token = os.getenv('API_KEY')
 
 
-
-
-def amout_rur (trans_action: dict) -> float:
+def amout_rur(trans_action: dict) -> float:
     '''
     функция, которая принимает на вход одну (словарь)транзакцию и возвращает сумму транзакции (amount) в рублях,
     тип данных — float
@@ -24,7 +22,6 @@ def amout_rur (trans_action: dict) -> float:
     rest = trans_action['operationAmount']['currency']['code'].upper()
     quantity_many = trans_action['operationAmount']['amount']
 
-
     if rest == 'RUB':
 
         return float(quantity_many)
@@ -32,7 +29,7 @@ def amout_rur (trans_action: dict) -> float:
     if rest == 'USD':
 
         url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount={quantity_many}"
-        payload = {}
+        payload: dict[str, float] = {}
         headers = {
             "apikey": f"{api_token}"
         }
@@ -69,4 +66,4 @@ def amout_rur (trans_action: dict) -> float:
             output_value = json.loads(output)
             return float(output_value['result'])
 
-    return ()
+    return 0
