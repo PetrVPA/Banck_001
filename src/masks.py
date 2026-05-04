@@ -1,3 +1,13 @@
+import logging
+
+utils_log = logging.getLogger("my_mask")
+# Создаем хендлер для вывода в файл
+utils_log.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler('../logs/example.log', encoding='utf-8')
+file_formatter = logging.Formatter('%(asctime)s %(name)s %(funcName)s %(levelname)s: %(message)s')
+file_handler.setFormatter(file_formatter)
+utils_log.addHandler(file_handler)
+
 
 def get_mask_card_number(number_card: int) -> str:
     """ Принимает номер карты 16 чисел и выдает замаскированый ответ: 1234 12** **** 1234
@@ -21,11 +31,14 @@ def get_mask_card_number(number_card: int) -> str:
         # oktet_3 = index_card[8:12]
         oktet_4 = index_card[12:16]
         mask_card = oktet_1 + " " + oktet_2 + " " + oktet_3 + " " + oktet_4
+        utils_log.debug('Формирование маски БК выполнено')
     else:
         if lenght_digit_card != 16 and check_digit:
-            print("Неверное колличество цифр")
+            print("Неверное количество цифр")
+            utils_log.debug('Неверное количество цифр')
         if not check_digit:
             print("Введены символы отличные от цифры")
+            utils_log.debug'Введены не только цифры')
     return str(mask_card)
 
 
@@ -43,9 +56,12 @@ def get_mask_account(number_account: int) -> str:
     check_digit = index_account.isdigit()
     if lenght_digit_account == 20 and check_digit:
         mask_account = "**" + index_account[16:21]
+        utils_log.debug('Формирование маски счета выполнено')
     else:
         if lenght_digit_account != 20 and check_digit:
             print("Неверное колличество цифр")
+            utils_log.debug('Неверное количество цифр')
         if not check_digit:
             print("Введены символы отличные от цифры")
+            utils_log.debug('Введены не только цифры')
     return str(mask_account)
