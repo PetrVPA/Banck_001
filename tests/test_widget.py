@@ -3,6 +3,7 @@ from src.widget import mask_account_card
 from src.widget import get_date
 
 
+
 def test_wid_cards(card_name: str) -> str:
     assert mask_account_card(card_name) == "Visa Platinum 1234 12** **** 1234"
 

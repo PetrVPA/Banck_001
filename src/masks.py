@@ -1,9 +1,11 @@
 import logging
+import os
 
 utils_log = logging.getLogger("my_mask")
 # Создаем хендлер для вывода в файл
 utils_log.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('../logs/example.log', encoding='utf-8')
+path_log = os.path.join(os.path.dirname(__file__), '..', 'logs', 'example.log')
+file_handler = logging.FileHandler(path_log, encoding='utf-8')
 file_formatter = logging.Formatter('%(asctime)s %(name)s %(funcName)s %(levelname)s: %(message)s')
 file_handler.setFormatter(file_formatter)
 utils_log.addHandler(file_handler)
@@ -38,7 +40,7 @@ def get_mask_card_number(number_card: int) -> str:
             utils_log.debug('Неверное количество цифр')
         if not check_digit:
             print("Введены символы отличные от цифры")
-            utils_log.debug'Введены не только цифры')
+            utils_log.debug('Введены не только цифры')
     return str(mask_card)
 
 
@@ -59,7 +61,7 @@ def get_mask_account(number_account: int) -> str:
         utils_log.debug('Формирование маски счета выполнено')
     else:
         if lenght_digit_account != 20 and check_digit:
-            print("Неверное колличество цифр")
+            print("Неверное количество цифр")
             utils_log.debug('Неверное количество цифр')
         if not check_digit:
             print("Введены символы отличные от цифры")
