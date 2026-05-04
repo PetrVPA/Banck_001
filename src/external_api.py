@@ -19,14 +19,14 @@ def amout_rur(trans_action: dict) -> float:
     '''
 
 
-    rest = trans_action['operationAmount']['currency']['code'].upper()
+    current_currency = trans_action['operationAmount']['currency']['code'].upper()
     quantity_many = trans_action['operationAmount']['amount']
 
-    if rest == 'RUB':
+    if current_currency == 'RUB':
 
         return float(quantity_many)
 
-    if rest == 'USD':
+    if current_currency == 'USD':
 
         url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount={quantity_many}"
         payload: dict[str, float] = {}
@@ -45,7 +45,7 @@ def amout_rur(trans_action: dict) -> float:
         else:
             output_value = json.loads(output)
             return float(output_value['result'])
-    if rest == 'EUR':
+    if current_currency == 'EUR':
 
         url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=EUR&amount={quantity_many}"
 
