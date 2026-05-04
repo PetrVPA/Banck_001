@@ -17,8 +17,6 @@ def amout_rur(trans_action: dict) -> float:
     'from': 'Maestro 1596837868705199', 'to': 'Счет 64686473678894779589'}
     :return:возвращает сумму операции в рублях в пересчете по курсу валюты float.
     '''
-
-
     current_currency = trans_action['operationAmount']['currency']['code'].upper()
     quantity_many = trans_action['operationAmount']['amount']
 
