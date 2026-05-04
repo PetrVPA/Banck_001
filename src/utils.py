@@ -1,12 +1,14 @@
 import json
 from typing import Any
 import logging
+import os
 
 
 utils_log = logging.getLogger("my_utils")
 # Создаем хендлер для вывода в файл
 utils_log.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('../logs/example.log', encoding='utf-8')
+path_log = os.path.join(os.path.dirname(__file__), '..', 'logs', 'example.log')
+file_handler = logging.FileHandler(path_log, encoding='utf-8')
 file_formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s: %(message)s')
 file_handler.setFormatter(file_formatter)
 utils_log.addHandler(file_handler)
