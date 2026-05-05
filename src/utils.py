@@ -9,7 +9,7 @@ utils_log = logging.getLogger("my_utils")
 utils_log.setLevel(logging.DEBUG)
 path_log = os.path.join(os.path.dirname(__file__), '..', 'logs', 'example.log')
 file_handler = logging.FileHandler(path_log, encoding='utf-8')
-file_formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s: %(message)s')
+file_formatter = logging.Formatter('%(asctime)s %(name)s %(funcName)s %(levelname)s: %(message)s')
 file_handler.setFormatter(file_formatter)
 utils_log.addHandler(file_handler)
 
@@ -31,5 +31,5 @@ def json_operation(name_dir: str) -> list:
         utils_log.error(f'Файл не найден {name_dir}')
         return []
     else:
-        utils_log.debug('Все получилось')
+        utils_log.debug(f'Результат выполнения функции: {output_operation}')
         return output_operation

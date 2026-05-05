@@ -41,6 +41,7 @@ def get_mask_card_number(number_card: int) -> str:
         if not check_digit:
             print("Введены символы отличные от цифры")
             utils_log.debug('Введены не только цифры')
+    utils_log.debug(f'Результат выполнения функции: {mask_card}')
     return str(mask_card)
 
 
@@ -66,4 +67,5 @@ def get_mask_account(number_account: int) -> str:
         if not check_digit:
             print("Введены символы отличные от цифры")
             utils_log.debug('Введены не только цифры')
+    utils_log.debug(f'Результат выполнения функции: {mask_account}')
     return str(mask_account)
