@@ -351,5 +351,3 @@ def log_ansver_002():
 @pytest.fixture
 def log_ansver_003():
     return "my_function error: TypeError. Inputs: (6, t), {}\n"
-
-

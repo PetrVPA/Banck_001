@@ -1,9 +1,7 @@
-import os
 import pandas as pd
-import openpyxl
 
 
-def work_csv(csv_path: str)->list:
+def work_csv(csv_path: str) -> list:
     '''
         Функция принимаем в виде строки адрес к CSV файлу с банковскими операциями считывает его как датафрейм и
         преобразует в список словарей
@@ -16,8 +14,7 @@ def work_csv(csv_path: str)->list:
     return csv_result
 
 
-
-def work_exel(ex_path: str)->list:
+def work_exel(ex_path: str) -> list:
     '''
         Функция принимаем в виде строки адрес к xlsx файлу с банковскими операциями считывает его как датафрейм и
         преобразует в список словарей
@@ -28,5 +25,3 @@ def work_exel(ex_path: str)->list:
     ex_operation = pd.read_excel(ex_path)
     ex_result = ex_operation.to_dict('records')
     return ex_result
-
-
