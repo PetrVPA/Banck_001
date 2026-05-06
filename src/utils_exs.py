@@ -11,7 +11,7 @@ def work_csv(csv_path: str)->list:
         Переменная csv_operation - обрабатываемый датафрейм
         Переменная csv_result - список словарей с транзакциями
     '''
-    csv_operation = pd.read_csv(csv_path)
+    csv_operation = pd.read_csv(csv_path, sep=';')
     csv_result = csv_operation.to_dict('records')
     return csv_result
 
