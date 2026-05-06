@@ -27,7 +27,7 @@ answer_json_string_02 = [
     "operationAmount": {
       "amount": "18321.39",
       "currency": {
-        "name": "USD",
+        "name": "RUB",
         "code": "RUB"
       }
     },
@@ -45,7 +45,7 @@ answer_json_string_03 = [
     "operationAmount": {
       "amount": "1351.79",
       "currency": {
-        "name": "USD",
+        "name": "EUR",
         "code": "EUR"
       }
     },
@@ -56,6 +56,24 @@ answer_json_string_03 = [
 ]
 
 answer_json_string_04 = [{}]
+
+answer_json_string_05 = [
+  {
+    "id": 41428829,
+    "state": "EXECUTED",
+    "date": "2019-07-03T18:35:29.512364",
+    "operationAmount": {
+      "amount": "1351.79",
+      "currency": {
+        "name": "AUD",
+        "code": "AUD"
+      }
+    },
+    "description": "Перевод организации",
+    "from": "MasterCard 7158300734726758",
+    "to": "Счет 35383033474447895560"
+  }
+]
 
 
 def test_utils1():
@@ -76,3 +94,8 @@ def test_utils3():
 def test_utils4():
     stend = json_operation("../Banck_001/data/json_string_04.json")
     assert stend == answer_json_string_04
+
+
+def test_utils5():
+  stend = json_operation("../Banck_001/data/json_string_05.json")
+  assert stend == answer_json_string_05
