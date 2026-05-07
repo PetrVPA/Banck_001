@@ -2,12 +2,13 @@ import requests
 import os
 from dotenv import load_dotenv
 import json
+from typing import Union
 
 load_dotenv()
 api_token = os.getenv('API_KEY')
 
 
-def amout_rur(trans_action: dict) -> float:
+def amout_rur(trans_action: dict) -> Union[float, str]:
     '''
     функция, которая принимает на вход одну (словарь)транзакцию и возвращает сумму транзакции (amount) в рублях,
     тип данных — float
@@ -32,14 +33,14 @@ def amout_rur(trans_action: dict) -> float:
             "apikey": f"{api_token}"
         }
         try:
-            response = requests.request("GET", url, headers=headers, data=payload)
+            response = requests.request("GET", url, headers=headers, data=payload, timeout=10)
             output = response.text
         except requests.exceptions.Timeout:
-            print("Превышено время ожидания...")
+            return "Превышено время ожидания..."
         except requests.exceptions.TooManyRedirects:
-            print("Количество перенаправлений превысило предел")
+            return "Количество перенаправлений превысило предел"
         except requests.exceptions.RequestException:
-            print("Ошибка в обращении к сервису. Попробуйте позже.")
+            return "Ошибка в обращении к сервису. Попробуйте позже."
         else:
             output_value = json.loads(output)
             return float(output_value['result'])

@@ -77,25 +77,30 @@ answer_json_string_05 = [
 
 
 def test_utils1():
-    stend = json_operation("../Banck_001/data/json_string_01.json")
-    assert stend == answer_json_string_01
+    stend1 = json_operation("../Banck_001/data/json_string_01.json")
+    assert stend1 == answer_json_string_01
 
 
 def test_utils2():
-    stend = json_operation("../Banck_001/data/json_string_02.json")
-    assert stend == answer_json_string_02
+    stend2 = json_operation("../Banck_001/data/json_string_02.json")
+    assert stend2 == answer_json_string_02
 
 
 def test_utils3():
-    stend = json_operation("../Banck_001/data/json_string_03.json")
-    assert stend == answer_json_string_03
+    stend3 = json_operation("../Banck_001/data/json_string_03.json")
+    assert stend3 == answer_json_string_03
 
 
 def test_utils4():
-    stend = json_operation("../Banck_001/data/json_string_04.json")
-    assert stend == answer_json_string_04
+    stend4 = json_operation("../Banck_001/data/json_string_04.json")
+    assert stend4 == answer_json_string_04
 
 
 def test_utils5():
-  stend = json_operation("../Banck_001/data/json_string_05.json")
-  assert stend == answer_json_string_05
+    stend5 = json_operation("../Banck_001/data/json_string_05.json")
+    assert stend5 == answer_json_string_05
+
+
+def test_utils6():
+    stend6 = json_operation("../Banck_001/data/json_string_xx.json")
+    assert stend6 == []
