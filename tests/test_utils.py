@@ -1,4 +1,5 @@
 from src.utils import json_operation
+from unittest.mock import patch
 
 
 answer_json_string_01 = [
@@ -103,4 +104,14 @@ def test_utils5():
 
 def test_utils6():
     stend6 = json_operation("../Banck_001/data/json_string_xx.json")
-    assert stend6 == []
+    assert stend6 == 'Файл не найден ../Banck_001/data/json_string_xx.json'
+
+
+@patch('src.utils.json.load')
+def test_utils7(mock_utils):
+    # Настраиваем заглушку — мокаем
+    mock_utils.side_effect = FileNotFoundError('Файл не найден json_string_xx.json')
+
+    stend7 = json_operation("../Banck_001/data/json_string_xx.json")
+
+    assert stend7 == 'Файл не найден ../Banck_001/data/json_string_xx.json'
