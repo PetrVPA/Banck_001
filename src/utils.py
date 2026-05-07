@@ -2,6 +2,7 @@ import json
 from typing import Any
 import logging
 import os
+from typing import Union
 
 
 utils_log = logging.getLogger("my_utils")
@@ -14,7 +15,7 @@ file_handler.setFormatter(file_formatter)
 utils_log.addHandler(file_handler)
 
 
-def json_operation(name_dir: str) -> list:
+def json_operation(name_dir: str) -> Union[list, str]:
     '''
     функция, которая принимает на вход путь до JSON-файла и возвращает список словарей
     с данными о финансовых транзакциях.
@@ -26,10 +27,10 @@ def json_operation(name_dir: str) -> list:
             output_operation = json.load(operation)
     except ValueError:
         utils_log.error(f'Не тот тип данных {operation}')
-        return []
+        return f'Не тот тип данных {operation}'
     except FileNotFoundError:
         utils_log.error(f'Файл не найден {name_dir}')
-        return []
+        return f'Файл не найден {name_dir}'
     else:
         utils_log.debug(f'Результат выполнения функции: {output_operation}')
         return output_operation
