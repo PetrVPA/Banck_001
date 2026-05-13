@@ -9,8 +9,21 @@ def filter_by_currency(list_operation: list, key_filter: str) -> list:
     list_operation перечень (список) всех анализируемых транзакций
     key_filter ключ определяющий выбор валюты для обработки транзакций
     '''
-    completed_transactions = (meaning_key for meaning_key in list_operation if meaning_key["operationAmount"][
+    completed_transactions = (meaning_key for meaning_key in list_operation if meaning_key["amount"][
         "currency"]["code"] == key_filter)
+    return completed_transactions
+
+def filter_by_currency_list(list_operation: list, key_filter: str) -> list:
+    '''
+    Функция возвращает итератор, который поочередно выдает транзакции, где валюта операции соответствует заданной
+    (например, USD)
+    return completed_transactions возвращаемый список словарей отвечающих требованию выбранной валюты транзакции
+    meaning_key очередная транзакция подвергающаяся анализу
+    list_operation перечень (список) всех анализируемых транзакций
+    key_filter ключ определяющий выбор валюты для обработки транзакций
+    '''
+    completed_transactions = (meaning_key for meaning_key in list_operation
+                              if meaning_key["currency_code"] == key_filter)
     return completed_transactions
 
 
@@ -22,6 +35,18 @@ def transaction_descriptions(list_operation: list) -> list:
     list_operation перечень (список) всех анализируемых транзакций
     '''
     meaning_transaction = (operation["description"] for operation in list_operation if operation["id"] > 0)
+    yield from meaning_transaction
+
+
+def transaction_descriptions_list(list_operation: list, set_discr: str) -> list:
+    '''
+    функция показывающая характер транзакции (вид операции)
+    return meaning_transaction возвращает список выполняемых операций
+    operation текущая транзакция
+    list_operation перечень (список) всех анализируемых транзакций
+    '''
+    meaning_transaction = (operation for operation in list_operation if operation["description"] == set_discr)
+    meaning_transaction = list(meaning_transaction)
     yield from meaning_transaction
 
 
