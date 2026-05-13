@@ -18,13 +18,13 @@ def mask_account_card(card_data: str) -> str:
     change_card = card_set.isdigit()
 
     if change_account:
-        account = int(account_set)
+        account = str(account_set)
         result_digit_account = get_mask_account(account)
         res_fool = "Счет " + result_digit_account
         return res_fool
 
     if change_card:
-        card = int(card_set)
+        card = str(card_set)
         result_digit_card = get_mask_card_number(card)
         res_fool = card_data[:-16] + result_digit_card
         return res_fool

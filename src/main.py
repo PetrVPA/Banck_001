@@ -83,9 +83,9 @@ if __name__ == '__main__':
 
     if date_choice == "ДА":
         if increasing_choice == "ДА":
-            revers_direction = True
-        else:
             revers_direction = False
+        else:
+            revers_direction = True
         answer_file = sort_by_date(answer_file, revers_direction)
 
 
@@ -140,7 +140,7 @@ if __name__ == '__main__':
                 name_valut = answer['currency_code']
                 if name_valut == "RUB":
                     name_valut = "руб."
-                print(f"Сумма: {adding} {name_valut}")
+                print(f"Сумма: {adding} {name_valut}\n")
 
             if type_operacion == "Открытие вклада":
                 acceptor = answer['to']
@@ -150,4 +150,4 @@ if __name__ == '__main__':
                 name_valut = answer['currency_code']
                 if name_valut == "RUB":
                     name_valut = "руб."
-                print(f"Сумма: {adding} {name_valut}")
+                print(f"Сумма: {adding} {name_valut}\n")
