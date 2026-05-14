@@ -35,13 +35,35 @@ def test_filter_by_currency5(question_transactions5, answer_transactions5):
 
 
 def test_transaction_descriptions1(question_transactions1):
-    forge1 = transaction_descriptions(question_transactions1)
-    assert next(forge1) == "Перевод организации"
+    name_operac = "Перевод с карты на карту"
+    forge1 = transaction_descriptions(question_transactions1, name_operac)
+    assert next(forge1) == {
+            "id": 3162071,
+            "state": "EXECUTED",
+            "date": "2022-11-02T17:44:03Z",
+            "amount": 20231,
+            "currency_name": "USD",
+            "currency_code": "USD",
+            "from": "American Express 9087124023963879",
+            "to": "Visa 0990855089517781",
+            "description": "Перевод с карты на карту"
+        }
 
 
 def test_transaction_descriptions2(question_transactions2):
-    forge2 = transaction_descriptions(question_transactions2)
-    assert next(forge2) == "Перевод со счета на счет"
+    name_operac = "Перевод со счета на счет"
+    forge2 = transaction_descriptions(question_transactions2, name_operac)
+    assert next(forge2) == {
+            "id": 5305859,
+            "state": "CANCELED",
+            "date": "2022-02-03T13:43:10Z",
+            "amount": 18940,
+            "currency_name": "USD",
+            "currency_code": "USD",
+            "from": "American Express 7575628496748633",
+            "to": "American Express 8201977224219171",
+            "description": "Перевод со счета на счет"
+        }
 
 
 def test_card_number_generator1(num_gen_start1, num_gen_finish1, answer_num_gen1):

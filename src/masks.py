@@ -11,7 +11,7 @@ file_handler.setFormatter(file_formatter)
 utils_log.addHandler(file_handler)
 
 
-def get_mask_card_number(number_card: int) -> str:
+def get_mask_card_number(number_card: str) -> str:
     """ Принимает номер карты 16 чисел и выдает замаскированый ответ: 1234 12** **** 1234
     number_card int переменная принимающая значение вводимое пользователем
     mask_card str   возвращаемое значение функции
@@ -45,7 +45,7 @@ def get_mask_card_number(number_card: int) -> str:
     return str(mask_card)
 
 
-def get_mask_account(number_account: int) -> str:
+def get_mask_account(number_account: str) -> str:
     """ Принимает номер счета 20 чисел и выдает замаскированый ответ: **1234
     number_account int  переменная принимающее значение водимое пользователем
     mask_account str  возвращаемая функцией строковая переменная маскированного счета
