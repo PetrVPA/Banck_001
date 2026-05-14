@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
 
     if type_file == 1:
-        answer_file = json_operation(os.path.join(os.path.dirname(__file__), '..', 'data', 'operations.json'))
+        answer_file = json_operation(os.path.join(os.path.dirname(__file__), '..', 'data', 'transactions.json'))
 
     if type_file == 2:
         answer_file = work_csv(os.path.join(os.path.dirname(__file__), '..', 'data', 'transactions.csv'))
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         answer_file = work_exel(os.path.join(os.path.dirname(__file__), '..', 'data', 'transactions_excel.xlsx'))
 
     best = filter_by_state(answer_file, name_filtr)#
-    answer_file = list(best)#
+    answer_file = list(best)
 
     if date_choice == "ДА":
         if increasing_choice == "ДА":
