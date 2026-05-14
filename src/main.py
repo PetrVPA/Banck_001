@@ -72,7 +72,7 @@ if __name__ == '__main__':
     if type_file == 3:
         answer_file = work_exel(os.path.join(os.path.dirname(__file__), '..', 'data', 'transactions_excel.xlsx'))
 
-    best = filter_by_state(answer_file, name_filtr)#
+    best = filter_by_state(answer_file, name_filtr)
     answer_file = list(best)
 
     if date_choice == "ДА":
@@ -91,7 +91,7 @@ if __name__ == '__main__':
         if word_type == 1:
             word_filtr = "Перевод со счета на счет"
             answer_file = transaction_descriptions(answer_file, word_filtr)
-            answer_file = list (answer_file)
+            answer_file = list(answer_file)
 
         if word_type == 2:
             word_filtr = "Открытие вклада"
@@ -128,7 +128,7 @@ if __name__ == '__main__':
                 donor = mask_account_card(donor)
                 acceptor = mask_account_card(acceptor)
                 print(f"{donor} -> {acceptor}")
-                adding = answer ['amount']
+                adding = answer['amount']
                 name_valut = answer['currency_code']
                 if name_valut == "RUB":
                     name_valut = "руб."
