@@ -3,8 +3,8 @@ from src.utils_exs import work_exel
 from src.utils import json_operation
 from src.processing import filter_by_state
 from src.processing import sort_by_date
-from src.generators import filter_by_currency_list
-from src.generators import transaction_descriptions_list
+from src.generators import transaction_descriptions
+from src.generators import filter_by_currency
 from src.widget import get_date
 from src.widget import mask_account_card
 import os
@@ -20,14 +20,12 @@ if __name__ == '__main__':
     if type_file != 1 and type_file != 2 and type_file != 3:
         raise ValueError("Вы ошиблись при вводе...")
 
-
     print("Введите статус, по которому необходимо выполнить фильтрацию операций")
     print("Доступные для фильтрации статусы: EXECUTED, CANCELED, PENDING")
     name_filtr = input("Введите статус: ")
     name_filtr = name_filtr.upper()
     if name_filtr != "EXECUTED" and name_filtr != "CANCELED" and name_filtr != "PENDING":
         raise ValueError(f"Программа не может выполнить фильтрацию по {name_filtr} !!!")
-
 
     print("Отсортировать операцию по дате. да/нет\n")
     date_choice = input("Ваш выбор: ")
@@ -41,20 +39,17 @@ if __name__ == '__main__':
     if increasing_choice != "ДА" and increasing_choice != "НЕТ":
         raise ValueError("Вы ошиблись при вводе...\n")
 
-
     print("Выводить только рублевые транзакции. да/нет\n")
     rub_choice = input("Ваш выбор: ")
     rub_choice = rub_choice.upper()
     if rub_choice != "ДА" and rub_choice != "НЕТ":
         raise ValueError("Вы ошиблись при вводе...\n")
 
-
     print("Отфильтровать список транзакций по определенному слову в описании? . да/нет\n")
     word_choice = input("Ваш выбор: ")
     word_choice = word_choice.upper()
     if word_choice != "ДА" and word_choice != "НЕТ":
         raise ValueError("Вы ошиблись при вводе...\n")
-
 
     if word_choice == "ДА":
         print("Выберите тип интересуюших операций.")
@@ -67,7 +62,6 @@ if __name__ == '__main__':
             raise ValueError("Вы ошиблись при вводе...\n")
     else:
         word_type = 0
-
 
     if type_file == 1:
         answer_file = json_operation(os.path.join(os.path.dirname(__file__), '..', 'data', 'transactions.json'))
@@ -88,32 +82,30 @@ if __name__ == '__main__':
             revers_direction = True
         answer_file = sort_by_date(answer_file, revers_direction)
 
-
     if rub_choice == "ДА":
         valut = "RUB"
-        dancig = filter_by_currency_list(answer_file, valut)
+        dancig = filter_by_currency(answer_file, valut)
         answer_file = list(dancig)
 
     if word_choice == "ДА":
         if word_type == 1:
             word_filtr = "Перевод со счета на счет"
-            answer_file = transaction_descriptions_list(answer_file, word_filtr)
+            answer_file = transaction_descriptions(answer_file, word_filtr)
             answer_file = list (answer_file)
-
 
         if word_type == 2:
             word_filtr = "Открытие вклада"
-            answer_file = transaction_descriptions_list(answer_file, word_filtr)
+            answer_file = transaction_descriptions(answer_file, word_filtr)
             answer_file = list(answer_file)
 
         if word_type == 3:
             word_filtr = "Перевод с карты на карту"
-            answer_file = transaction_descriptions_list(answer_file, word_filtr)
+            answer_file = transaction_descriptions(answer_file, word_filtr)
             answer_file = list(answer_file)
 
         if word_type == 4:
             word_filtr = "Перевод организации"
-            answer_file = transaction_descriptions_list(answer_file, word_filtr)
+            answer_file = transaction_descriptions(answer_file, word_filtr)
             answer_file = list(answer_file)
     print("Распечатываю итоговый список транзакций...")
 
