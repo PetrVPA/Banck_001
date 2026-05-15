@@ -40,20 +40,22 @@ if __name__ == '__main__':
     while True:
         date_choice = input("Ваш выбор: ")
         date_choice = date_choice.upper()
+        if date_choice == "ДА":
+            print("Отсортировать операцию по возрастанию или по убыванию. да/нет\n")
+
+            while True:
+                increasing_choice = input("Ваш выбор: ")
+                increasing_choice = increasing_choice.upper()
+                if increasing_choice != "ДА" and increasing_choice != "НЕТ":
+                    print("Вы ошиблись при вводе...")
+                else:
+                    break
+
         if date_choice != "ДА" and date_choice != "НЕТ":
             print("Вы ошиблись при вводе...")
         else:
             break
 
-    print("Отсортировать операцию по возрастанию или по убыванию. да/нет\n")
-
-    while True:
-        increasing_choice = input("Ваш выбор: ")
-        increasing_choice = increasing_choice.upper()
-        if increasing_choice != "ДА" and increasing_choice != "НЕТ":
-            print("Вы ошиблись при вводе...")
-        else:
-            break
 
     print("Выводить только рублевые транзакции. да/нет\n")
 
