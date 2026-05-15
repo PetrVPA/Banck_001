@@ -16,40 +16,64 @@ if __name__ == '__main__':
     print("1. Получить информацию о транзакциях из JSON - файла ")
     print("2. Получить информацию о транзакциях из CSV - файла ")
     print("3. Получить информацию о транзакциях из XLSX - файла\n ")
-    type_file = int(input("Введите пункт меню: "))
-    if type_file != 1 and type_file != 2 and type_file != 3:
-        raise ValueError("Вы ошиблись при вводе...")
+
+    while True:
+        type_file = int(input("Введите пункт меню: "))
+        if type_file != 1 and type_file != 2 and type_file != 3:
+            print("Вы ошиблись при вводе...")
+        else:
+            break
 
     print("Введите статус, по которому необходимо выполнить фильтрацию операций")
     print("Доступные для фильтрации статусы: EXECUTED, CANCELED, PENDING")
-    name_filtr = input("Введите статус: ")
-    name_filtr = name_filtr.upper()
-    if name_filtr != "EXECUTED" and name_filtr != "CANCELED" and name_filtr != "PENDING":
-        raise ValueError(f"Программа не может выполнить фильтрацию по {name_filtr} !!!")
+
+    while True:
+        name_filtr = input("Введите статус: ")
+        name_filtr = name_filtr.upper()
+        if name_filtr != "EXECUTED" and name_filtr != "CANCELED" and name_filtr != "PENDING":
+            print("Вы ошиблись при вводе...")
+        else:
+            break
 
     print("Отсортировать операцию по дате. да/нет\n")
-    date_choice = input("Ваш выбор: ")
-    date_choice = date_choice.upper()
-    if date_choice != "ДА" and date_choice != "НЕТ":
-        raise ValueError("Вы ошиблись при вводе...\n")
+
+    while True:
+        date_choice = input("Ваш выбор: ")
+        date_choice = date_choice.upper()
+        if date_choice != "ДА" and date_choice != "НЕТ":
+            print("Вы ошиблись при вводе...")
+        else:
+            break
 
     print("Отсортировать операцию по возрастанию или по убыванию. да/нет\n")
-    increasing_choice = input("Ваш выбор: ")
-    increasing_choice = increasing_choice.upper()
-    if increasing_choice != "ДА" and increasing_choice != "НЕТ":
-        raise ValueError("Вы ошиблись при вводе...\n")
+
+    while True:
+        increasing_choice = input("Ваш выбор: ")
+        increasing_choice = increasing_choice.upper()
+        if increasing_choice != "ДА" and increasing_choice != "НЕТ":
+            print("Вы ошиблись при вводе...")
+        else:
+            break
 
     print("Выводить только рублевые транзакции. да/нет\n")
-    rub_choice = input("Ваш выбор: ")
-    rub_choice = rub_choice.upper()
-    if rub_choice != "ДА" and rub_choice != "НЕТ":
-        raise ValueError("Вы ошиблись при вводе...\n")
+
+    while True:
+        rub_choice = input("Ваш выбор: ")
+        rub_choice = rub_choice.upper()
+        if rub_choice != "ДА" and rub_choice != "НЕТ":
+            print("Вы ошиблись при вводе...")
+        else:
+            break
 
     print("Отфильтровать список транзакций по определенному слову в описании? . да/нет\n")
-    word_choice = input("Ваш выбор: ")
-    word_choice = word_choice.upper()
-    if word_choice != "ДА" and word_choice != "НЕТ":
-        raise ValueError("Вы ошиблись при вводе...\n")
+
+    while True:
+        word_choice = input("Ваш выбор: ")
+        word_choice = word_choice.upper()
+        if word_choice != "ДА" and word_choice != "НЕТ":
+            print("Вы ошиблись при вводе...")
+        else:
+            break
 
     if word_choice == "ДА":
         print("Выберите тип интересуюших операций.")
@@ -57,9 +81,13 @@ if __name__ == '__main__':
         print("2. Открытие вклада.")
         print("3. Перевод с карты на карту.")
         print("4. Перевод организации.\n")
-        word_type = int(input("Ваш выбор: "))
-        if word_type != 1 and word_type != 2 and word_type != 3 and word_type != 4:
-            raise ValueError("Вы ошиблись при вводе...\n")
+
+        while True:
+            word_type = int(input("Ваш выбор: "))
+            if word_type != 1 and word_type != 2 and word_type != 3 and word_type != 4:
+                print("Вы ошиблись при вводе...")
+            else:
+                break
     else:
         word_type = 0
 
@@ -107,14 +135,14 @@ if __name__ == '__main__':
             word_filtr = "Перевод организации"
             answer_file = transaction_descriptions(answer_file, word_filtr)
             answer_file = list(answer_file)
-    print("Распечатываю итоговый список транзакций...")
+    print("Распечатываю итоговый список транзакций...\n")
 
     quantity_transaction = len(answer_file)
 
     if quantity_transaction == 0:
         print("Не найдено ни одной транзакции подходящие под Ваши условия фильтрации.")
     else:
-        print(f"Всего банковских операций: {quantity_transaction}")
+        print(f"Всего банковских операций: {quantity_transaction}\n")
 
         for answer in answer_file:
             dat_operacion = answer['date']

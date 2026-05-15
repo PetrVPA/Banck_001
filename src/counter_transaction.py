@@ -1,4 +1,5 @@
 import re
+from collections import Counter
 
 
 def bank_counter(list_data: list[dict], search_name: str) -> list[dict]:
@@ -34,4 +35,16 @@ def bank_discr_operation(list_data: list[dict], categories: list) -> list[dict]:
         quantity_category = re.findall(pattern_cat, ser, flags=re.IGNORECASE)
         kord = len(quantity_category)
         result[value] = kord
+    return result
+
+
+def bank_discr_operation_vol_2(list_data: list[dict]) -> dict:
+    '''
+    Функция показывающая какие и какое количество операций выполнено по ключу description
+    :param list_data: список словарей транзакций
+    :return: result: словарь с типом операций - ключ и их количество - значение
+    '''
+    cat = [t["description"] for t in list_data]
+    category_count = Counter(cat)
+    result = category_count
     return result
