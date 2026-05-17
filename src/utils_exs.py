@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def work_csv(csv_path: str) -> list:
+def work_csv(csv_path: str) -> list[dict]:
     '''
         Функция принимаем в виде строки адрес к CSV файлу с банковскими операциями считывает его как датафрейм и
         преобразует в список словарей

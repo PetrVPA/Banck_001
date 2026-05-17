@@ -56,7 +56,6 @@ if __name__ == '__main__':
         else:
             break
 
-
     print("Выводить только рублевые транзакции. да/нет\n")
 
     while True:

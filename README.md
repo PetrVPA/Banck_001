@@ -41,7 +41,7 @@ reqwest и dotenv.
 из файла xlsx.
 
 Девятый модуль реализованы две функции. bank_counter осуществляет фильтрацию списков словарей содержащих фильтрацию по
-статусу операций ('CANCELED'. 'EXECUTED', 'PENDING'). Другая bank_discr_operation_vol_2 осуществляет по ключу 
+статусу операций находящихся по ключу 'description' ('CANCELED'. 'EXECUTED', 'PENDING'). Другая bank_discr_operation_vol_2 осуществляет по ключу 
 description выдает его значение и количество транзакций по этому значению.
 
 ## Установка:
