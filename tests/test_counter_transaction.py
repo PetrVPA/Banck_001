@@ -91,37 +91,54 @@ def test_bank_counter3(question_transactions_z):
     assert bank_counter(question_transactions_z, search_name) == list_data
 
 
-@pytest.fixture
 def test_bank_counter4(question_transactions_z):
     search_name = ''
     list_data = []
     assert bank_counter(question_transactions_z, search_name) == list_data
 
 
-@pytest.fixture
 def test_bank_counter5(question_transactions_z):
     search_name = 'TEST'
     list_data = []
     assert bank_counter(question_transactions_z, search_name) == list_data
 
 
-@pytest.fixture
 def test_bank_discr_operation1(question_transactions_z):
     list_data = ['Перевод организации', 'Перевод со счета на счет']
-    assert bank_discr_operation(question_transactions_z, list_data) == {'Перевод организации': 1,
-                                                                        'Перевод со счета на счет': 1}
+    assert bank_discr_operation(question_transactions_z, list_data) == ["'Перевод организации': 1",
+                                                                        "'Перевод со счета на счет': 1"]
 
 
-@pytest.fixture
 def test_bank_discr_operation2(question_transactions_z):
     list_data = ['Перевод с карты на карту', 'Открытие вклада']
-    assert bank_discr_operation(question_transactions_z, list_data) == {'Перевод с карты на карту': 4,
-                                                                        'Открытие вклада': 1}
+    assert bank_discr_operation(question_transactions_z, list_data) == ["'Перевод с карты на карту': 4",
+                                                                        "'Открытие вклада': 1"]
 
 
-@pytest.fixture
 def test_bank_discr_operation3(question_transactions_z):
     list_data = ['Перевод с карты на карту', 'Открытие вклада', 'Перевод организации', 'Перевод со счета на счет']
-    assert bank_discr_operation(question_transactions_z, list_data) == {'Перевод с карты на карту': 4,
-                                                                        'Открытие вклада': 1, 'Перевод организации': 1,
-                                                                        'Перевод со счета на счет': 1}
+    assert bank_discr_operation(question_transactions_z,
+                                list_data) == ["'Перевод с карты на карту': 4",
+                                               "'Открытие вклада': 1", "'Перевод организации': 1",
+                                               "'Перевод со счета на счет': 1"]
+
+
+def test_bank_discr_operation4(question_transactions_z):
+    list_data = []
+    assert bank_discr_operation(question_transactions_z, list_data) == []
+
+
+def test_bank_discr_operation6(question_transactions_z):
+    list_data = ['Открытие вклада']
+    assert bank_discr_operation(question_transactions_z, list_data) == ["'Открытие вклада': 1"]
+
+
+def test_bank_discr_operation7(question_transactions_z):
+    list_data = ['Подвоз снарядов']
+    assert bank_discr_operation(question_transactions_z, list_data) == ['отсутствует такое значение '
+                                                                        'у ключа "description"']
+
+
+def test_bank_discr_operation8(question_transactions_z):
+    list_data = 126
+    assert bank_discr_operation(question_transactions_z, list_data) == ['+++']

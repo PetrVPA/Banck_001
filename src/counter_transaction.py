@@ -4,7 +4,8 @@ from collections import Counter
 
 def bank_counter(list_data: list[dict], search_name: str) -> list[dict]:
     '''
-    Функция реализует фильтрацию транзакций по статусу CANCELED, EXECUTED, PENDING
+    Функция 1 пункта домашней работы реализующий библитеку re реализует фильтрацию транзакций по статусу CANCELED,
+    EXECUTED, PENDING
     :param list_data: предоставляемый перечень транзакций (список словарей)
     :param search_name: выбранный пользователем один из трех статусов
     :return: возвращает отфильтрованный список словарей
@@ -20,31 +21,30 @@ def bank_counter(list_data: list[dict], search_name: str) -> list[dict]:
     return result_list2
 
 
-def bank_discr_operation(list_data: list[dict], categories: list) -> list[dict]:
+def bank_discr_operation(list_data: list[dict], search: list) -> list:
     '''
-    Функция показывающая из всего перечня транзакций какое количество операций по запрашиваемому характеру ('Перевод с
-    карты на карту'; 'Перевод организации'; 'Открытие вклада'; 'Перевод со счета на счет')
-    :param list_data: список словарей транзакций
-    :param categories: список интересуемых операций
-    :return: result: список словарей с типом операций и их количеством
-    '''
-    ser = str(list_data)
-    result = {}
-    for value in categories:
-        pattern_cat = value
-        quantity_category = re.findall(pattern_cat, ser, flags=re.IGNORECASE)
-        kord = len(quantity_category)
-        result[value] = kord
-    return result
-
-
-def bank_discr_operation_vol_2(list_data: list[dict]) -> dict:
-    '''
-    Функция показывающая какие и какое количество операций выполнено по ключу description
+    Функция 2 пункта домашней работы истользующий ключ "description" показывающая какие и какое количество операций
+    выполнено по ключу description
     :param list_data: список словарей транзакций
     :return: result: словарь с типом операций - ключ и их количество - значение
     '''
-    cat = [t["description"] for t in list_data]
-    category_count = Counter(cat)
-    result = category_count
-    return result
+    answer_funk = []
+    list_trans = [t['description'] for t in list_data]
+    category_count = str(Counter(list_trans))
+
+    try:
+        for transact in search:
+            pattern = r"\'"+transact+r"\':\s\d+"
+            try:
+                current_key = re.search(pattern, category_count)
+                current_key = current_key.group()
+            except AttributeError:
+                error = ['отсутствует такое значение у ключа "description"']
+                return error
+            else:
+                answer_funk.append(current_key)
+    except TypeError:
+        error = ['+++']
+        return error
+    else:
+        return answer_funk
