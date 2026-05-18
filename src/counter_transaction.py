@@ -21,58 +21,23 @@ def bank_counter(list_data: list[dict], search_name: str) -> list[dict]:
     return result_list2
 
 
-def bank_discr_operation_list(list_data: list[dict], search: list) -> list:
+def bank_discr_operation(list_data: list[dict], search: str) -> list[dict]:
     '''
     Функция 2 пункта домашней работы истользующий ключ "description" показывающая какие и какое количество операций
     выполнено по ключу description
     :param list_data: список словарей транзакций
     :return: result: словарь с типом операций - значение ключа "description" их количество таких операций
     '''
+    data = {}
     answer_funk = []
+
     list_trans = [t['description'] for t in list_data]
-    category_count = str(Counter(list_trans))
+    category_count = Counter(list_trans)
+    print(category_count)
+    pattern = str(search)
 
-    try:
-        for transact in search:
-            pattern = r"\'"+transact+r"\':\s\d+"
-            try:
-                current_key = re.search(pattern, category_count)
-                current_key = current_key.group()
-            except AttributeError:
-                error = ['отсутствует такое значение у ключа "description"']
-                return error
-            else:
-                answer_funk.append(current_key)
-    except TypeError:
-        error = ['введен не список']
-        return error
-    else:
-        return answer_funk
-
-
-def bank_discr_operation_str(list_data: list[dict], search: str) -> list[dict]:
-    '''
-    Функция 2 пункта домашней работы истользующий ключ "description" показывающая какие и какое количество операций
-    выполнено по ключу description
-    :param list_data: список словарей транзакций
-    :return: result: словарь с типом операций - значение ключа "description" их количество таких операций
-    '''
-    answer_funk = []
-    list_trans = [t['description'] for t in list_data]
-    category_count = str(Counter(list_trans))
-
-    try:
-        pattern = r"\'"+search+r"\':\s\d+"
-        try:
-            current_key = re.search(pattern, category_count)
-            current_key = current_key.group()
-        except AttributeError:
-            error = ['отсутствует такое значение у ключа "description"']
-            return error
-        else:
-            answer_funk.append(current_key)
-    except TypeError:
-        error = ['Введена не строка']
-        return error
-    else:
-        return answer_funk
+    for key, value in category_count.items():
+        if re.search(pattern, str(key), re.IGNORECASE):
+            data[key] = value
+    answer_funk.append(data)
+    return answer_funk
