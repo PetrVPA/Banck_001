@@ -4,21 +4,24 @@ from collections import Counter
 
 def bank_counter(list_data: list[dict], search_name: str) -> list[dict]:
     '''
-    Функция 1 пункта домашней работы реализующий библитеку re реализует фильтрацию транзакций по статусу CANCELED,
-    EXECUTED, PENDING
+    Функция 1 пункта домашней работы реализующий библитеку re реализует фильтрацию транзакций по строке содержащей
+    значение CANCELED, EXECUTED или PENDING. Любое другое значение вернет список пустого словаря.
     :param list_data: предоставляемый перечень транзакций (список словарей)
     :param search_name: выбранный пользователем один из трех статусов
     :return: возвращает отфильтрованный список словарей
     '''
-    ser = str(list_data)
-    pattern = "{0}{1}{2}".format((r"\{\'id\': \d+\.\d+, 'state':"
-                                  r" \'"), re.escape(search_name),
-                                 (r"\', \'date\': \'\d+-\d+-\d+\w\d+:\d+:\d+\w\', \'amount\':"
-                                  r" \d+\.\d+, \'currency_name\': \'\w+\', \'currency_code\':"
-                                  r" \'\w+\', \'from\': \'[a-zA-Z\s0-9]+\', \'to\':"
-                                  r" \'[а-яА-Я\s0-9]+\', \'description\': \'[а-яА-Я\s0-9]+\'\}"))
-    result_list2 = re.findall(pattern, ser, flags=re.IGNORECASE)
-    return result_list2
+    result_list = []
+    search_name = str(search_name)
+    search_name = search_name.upper()
+    if search_name == 'CANCELED' or search_name == 'PENDING' or search_name == 'EXECUTED':
+        for stend in list_data:
+            tez = str(stend)
+            result_list2 = re.search(search_name, tez, flags=re.IGNORECASE)
+            if result_list2:
+                result_list.append(stend)
+        return result_list
+    else:
+        return [{}]
 
 
 def bank_discr_operation(list_data: list[dict], search: str) -> list[dict]:

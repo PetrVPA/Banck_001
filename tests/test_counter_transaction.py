@@ -94,13 +94,13 @@ def test_bank_counter3(question_transactions_z):
 
 def test_bank_counter4(question_transactions_z):
     search_name = ''
-    list_data = []
+    list_data = [{}]
     assert bank_counter(question_transactions_z, search_name) == list_data
 
 
 def test_bank_counter5(question_transactions_z):
     search_name = 'TEST'
-    list_data = []
+    list_data = [{}]
     assert bank_counter(question_transactions_z, search_name) == list_data
 
 
