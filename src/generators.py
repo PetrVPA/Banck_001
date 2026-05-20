@@ -36,7 +36,8 @@ def transaction_descriptions(list_operation: list, set_discr: str) -> list[dict]
     '''
     meaning_transaction = (operation for operation in list_operation if operation["description"] == set_discr)
     meaning_transaction = list(meaning_transaction)
-    yield from meaning_transaction
+    result_list = list(meaning_transaction)
+    return result_list
 
 
 def card_number_generator(start: int, finish: int) -> list:
