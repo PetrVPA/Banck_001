@@ -36,11 +36,10 @@ def bank_discr_operation(list_data: list[dict], search: str) -> list[dict]:
 
     list_trans = [t['description'] for t in list_data]
     category_count = Counter(list_trans)
-    print(category_count)
-    pattern = str(search)
+    search = str(search)
 
     for key, value in category_count.items():
-        if re.search(pattern, str(key), re.IGNORECASE):
+        if re.search(search, str(key), re.IGNORECASE):
             data[key] = value
     answer_funk.append(data)
     return answer_funk

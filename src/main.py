@@ -7,6 +7,7 @@ from src.generators import transaction_descriptions
 from src.generators import filter_by_currency
 from src.widget import get_date
 from src.widget import mask_account_card
+from src.counter_transaction import bank_discr_operation
 import os
 
 
@@ -77,15 +78,9 @@ if __name__ == '__main__':
             break
 
     if word_choice == "ДА":
-        print("Выберите тип интересуюших операций.")
-        print("1. Перевод со счета на счет.")
-        print("2. Открытие вклада.")
-        print("3. Перевод с карты на карту.")
-        print("4. Перевод организации.\n")
-
         while True:
-            word_type = int(input("Ваш выбор: "))
-            if word_type != 1 and word_type != 2 and word_type != 3 and word_type != 4:
+            word_type = (input("Ваше слово: "))
+            if not isinstance(word_type, str):
                 print("Вы ошиблись при вводе...")
             else:
                 break
@@ -117,58 +112,47 @@ if __name__ == '__main__':
         answer_file = list(dancig)
 
     if word_choice == "ДА":
-        if word_type == 1:
-            word_filtr = "Перевод со счета на счет"
-            answer_file = transaction_descriptions(answer_file, word_filtr)
-            answer_file = list(answer_file)
+        answer_quantity = bank_discr_operation(answer_file, word_type)
 
-        if word_type == 2:
-            word_filtr = "Открытие вклада"
-            answer_file = transaction_descriptions(answer_file, word_filtr)
-            answer_file = list(answer_file)
-
-        if word_type == 3:
-            word_filtr = "Перевод с карты на карту"
-            answer_file = transaction_descriptions(answer_file, word_filtr)
-            answer_file = list(answer_file)
-
-        if word_type == 4:
-            word_filtr = "Перевод организации"
-            answer_file = transaction_descriptions(answer_file, word_filtr)
-            answer_file = list(answer_file)
     print("Распечатываю итоговый список транзакций...\n")
+    quantity_fin = 0
 
-    quantity_transaction = len(answer_file)
+    if word_choice == "ДА":
+        for stend in answer_quantity:
+            for key, value in stend.items():
+                print(f"{key} выполнено: {value}")
+                quantity_fin = quantity_fin + value
+        list_tras = []
 
-    if quantity_transaction == 0:
+        for tras in answer_quantity:
+            for key in tras.keys():
+                list_tras.append(key)
+        result = []
+        for stend in list_tras:
+            result = transaction_descriptions(answer_file, stend)
+
+    else:
+        quantity_fin = len(answer_file)
+        result = answer_file
+
+    if quantity_fin == 0:
         print("Не найдено ни одной транзакции подходящие под Ваши условия фильтрации.")
     else:
-        print(f"Всего банковских операций: {quantity_transaction}\n")
-
-        for answer in answer_file:
-            dat_operacion = answer['date']
-            dat_operacion = get_date(dat_operacion)
-            type_operacion = answer['description']
-            print(f"{dat_operacion} {type_operacion}")
-            if (type_operacion == "Перевод с карты на карту" or
-                    type_operacion == "Перевод со счета на счет" or type_operacion == "Перевод организации"):
-                donor = answer['from']
-                acceptor = answer['to']
-                donor = mask_account_card(donor)
-                acceptor = mask_account_card(acceptor)
-                print(f"{donor} -> {acceptor}")
-                adding = answer['amount']
-                name_valut = answer['currency_code']
-                if name_valut == "RUB":
-                    name_valut = "руб."
-                print(f"Сумма: {adding} {name_valut}\n")
-
-            if type_operacion == "Открытие вклада":
-                acceptor = answer['to']
-                acceptor = mask_account_card(acceptor)
-                print(f"Счет: {acceptor}")
-                adding = answer['amount']
-                name_valut = answer['currency_code']
-                if name_valut == "RUB":
-                    name_valut = "руб."
-                print(f"Сумма: {adding} {name_valut}\n")
+        print(f"Всего банковских операций: {quantity_fin}\n")
+        for cert in result:
+            date_answer = get_date(cert["date"])
+            class_answer = cert['description']
+            if class_answer != 'Открытие вклада':
+                donor_answer = mask_account_card(cert["from"])
+            akceptor_answer = mask_account_card(cert["to"])
+            amout_answer = cert["amount"]
+            valut_answer = cert["currency_code"]
+            print(f"{date_answer} {class_answer}")
+            if class_answer == 'Открытие вклада':
+                print(f"{akceptor_answer}")
+            else:
+                print(f"{donor_answer} -> {akceptor_answer}")
+            if valut_answer == 'RUB':
+                print(f"Сумма: {amout_answer} руб.\n")
+            else:
+                print(f"Сумма: {amout_answer} {valut_answer}\n")
